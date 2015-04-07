@@ -16,7 +16,7 @@ namespace VehicleTest.Business
         {
             using(var context = new VehicleTestContext())
             {
-                return context.VehicleMakes.ToList();
+                return context.VehicleMakes.OrderBy(t => t.Make).ToList();
             }
         }
 
@@ -62,7 +62,7 @@ namespace VehicleTest.Business
         {
             using(var context = new VehicleTestContext())
             {
-                return context.VehicleModels.Include(t => t.Make).OrderBy(t => t.MakeId).ThenBy(t => t.ModelName).ToList();
+                return context.VehicleModels.Include(t => t.Make).OrderBy(t => t.Make.Make).ThenBy(t => t.ModelName).ToList();
             }
 
         }
