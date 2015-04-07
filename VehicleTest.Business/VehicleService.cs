@@ -44,7 +44,7 @@ namespace VehicleTest.Business
         {
             using(var context = new VehicleTestContext())
             {
-                return context.VehicleModels.Include(t => t.Make).ToList();
+                return context.VehicleModels.Include(t => t.Make).OrderBy(t => t.MakeId).ThenBy(t => t.ModelName).ToList();
             }
 
         }
