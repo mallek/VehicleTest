@@ -47,6 +47,7 @@ namespace VehicleTest.Controllers
             return View(make);
         }
 
+        [HttpGet]
         public ActionResult Delete(int id)
         {
 
@@ -60,6 +61,22 @@ namespace VehicleTest.Controllers
         {
 
             vehicleMake.MakeId = _vehicleService.AddMake(vehicleMake);
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Edit(VehicleMake vehicleMake)
+        {
+            _vehicleService.UpdateMake(vehicleMake);
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Delete(VehicleMake vehicleMake)
+        {
+
+            _vehicleService.DeleteMake(vehicleMake.MakeId);
+
             return View();
         }
 
