@@ -41,7 +41,14 @@ namespace VehicleTest.Controllers
         public ActionResult Create()
         {
 
-            return View(new VehicleModel());
+            var makes = _vehicleService.GetMakes();
+
+            var viewModel = new CreateViewModel()
+            {
+                Makes = makes
+            };
+
+            return View(viewModel);
         }
 
         public ActionResult Edit(int id)
@@ -71,12 +78,25 @@ namespace VehicleTest.Controllers
 
 
         [HttpPost]
-        public ActionResult Create(VehicleModel vehicleModel)
+        public ActionResult Create(CreateViewModel vehicleModel)
         {
 
-            vehicleModel.ModelId = _vehicleService.AddModel(vehicleModel);
+            vehicleModel.Makes = _vehicleService.GetMakes();
 
-            return View();
+            if(!ModelState.IsValid)
+            {
+                return View(vehicleModel);
+            }
+
+            var model = new VehicleModel()
+            {
+                MakeId = vehicleModel.MakeId,
+                ModelName = vehicleModel.ModelName
+            };
+            
+            model.ModelId = _vehicleService.AddModel(model);
+
+            return View(vehicleModel);
         }
 
 
