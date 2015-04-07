@@ -13,8 +13,6 @@ namespace VehicleTest.Controllers
     public class ModelController : Controller
     {
 
-
-
         private readonly IVehicleService _vehicleService;
 
 

@@ -22,22 +22,40 @@ namespace VehicleTest.Business
 
         public Data.VehicleMake GetMake(int id)
         {
-            throw new NotImplementedException();
+            using (var context = new VehicleTestContext())
+            {
+                return context.VehicleMakes.SingleOrDefault(t => t.MakeId == id);                
+            }
         }
 
         public int AddMake(Data.VehicleMake vehicleMake)
         {
-            throw new NotImplementedException();
+            using (var context = new VehicleTestContext())
+            {
+                context.VehicleMakes.Add(vehicleMake);
+                context.SaveChanges();
+                return vehicleMake.MakeId;
+            }
         }
 
         public void UpdateMake(Data.VehicleMake vehicleMake)
         {
-            throw new NotImplementedException();
+            using (var context = new VehicleTestContext())
+            {
+                var oldMake = context.VehicleMakes.SingleOrDefault(t => t.MakeId == vehicleMake.MakeId);
+                context.Entry(oldMake).CurrentValues.SetValues(vehicleMake);
+                context.SaveChanges();
+            }
         }
 
         public void DeleteMake(int id)
         {
-            throw new NotImplementedException();
+            using (var context = new VehicleTestContext())
+            {
+                var oldMake = context.VehicleMakes.SingleOrDefault(t => t.MakeId == id);
+                context.VehicleMakes.Remove(oldMake);
+                context.SaveChanges();
+            }
         }
 
         public IEnumerable<Data.VehicleModel> GetModels()
